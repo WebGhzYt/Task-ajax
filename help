@@ -1,0 +1,25 @@
+<%= link_to new_task_path, remote: true do %>
+      <button class="btn btn-default">New</button>
+    <% end %>
+
+    def new
+    @task = Task.new
+  end
+
+
+  $('#task-form').html("<%= j (render 'form') %>");
+
+  <%= simple_form_for @task, remote: true do |f|   %>
+  <%= f.input  :description, as: :text           %>
+  <%= f.input  :deadline,    as: :datetimepicker %>
+  <%= f.button :submit %>
+<% end %>
+
+
+def create
+    @task = Task.create(task_params)
+  end
+
+
+$('#tasks').html("<%= escape_javascript(render @tasks) %>");
+$('#task-form').slideUp(350);
